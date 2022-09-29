@@ -1,0 +1,23 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#main-header {
+    text-align: center;
+}
+
+.nav-button {
+   margin-left: 50%;
+   transform: translate(-50%, 0);
+   width: 15%;
+   margin-bottom: 20px;
+}
+
+question-container {
+    display: none;
+    margin-left: 50%;
+    transform: translate(-50%, 0);
+    width: 600px;
+    height: 600px;
+    border: 2px solid black;
+}

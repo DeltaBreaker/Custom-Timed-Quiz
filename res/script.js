@@ -125,3 +125,26 @@ function advanceQuiz() {
         // End the game here
     }
 };
+
+function updateTimer(amount) {
+    time += amount;
+    timer.textContent = "Time Left: " + time;
+}
+
+function isRight() {
+    rightWrongLabel.style.color = "#D2D3D5FF";
+    rightWrongLabel.textContent = "Right";
+    colorFadeOut = setInterval(function() {
+        rightWrongLabel.style.color = "#D2D3D500";
+        clearInterval(colorFadeOut);
+    }, 1000);
+}
+
+function isWrong() {
+    rightWrongLabel.style.color = "#D2D3D5FF";
+    rightWrongLabel.textContent = "Wrong";
+    colorFadeOut = setInterval(function() {
+        rightWrongLabel.style.color = "#D2D3D500";
+        clearInterval(colorFadeOut);
+    }, 1000);
+}

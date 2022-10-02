@@ -90,6 +90,8 @@ var question_5 = {
 var questions = [ question_0, question_1, question_2, question_3, question_4, question_5 ];
 var currentQuestion = 0;
 
+loadScores();
+
 startButton.addEventListener("click", function() {
     quizState.setAttribute("style", "display: block;");
     readyState.setAttribute("style", "display: none;");
@@ -192,7 +194,8 @@ function endGame(text) {
 }
 
 saveButton.addEventListener("click", function() {
-    saveScores(time);
+    var name = document.getElementById("name-input");
+    saveScores(name.value + " " + time);
     inputState.setAttribute("style", "display:none;");
     displayScores("Your Score: " + time);
 });
@@ -225,5 +228,21 @@ function displayScores(text) {
         var listing = document.createElement("li");
         listing.textContent = score;
         scoreList.appendChild(listing);
+    }
+}
+
+var storageKey = "scores";
+function saveScores() {
+    var scoreString = "";
+    for(const score of highscores) {
+        scoreString += highscores + ",-,";
+    }
+    localStorage.setItem(storageKey, scoreString);
+}
+
+function loadScores() {
+    var scoreString = localStorage.getItem(storageKey);
+    if(scoreString != null) {
+        highscores = scoreString.split(",-,");
     }
 }

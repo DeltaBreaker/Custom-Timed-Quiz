@@ -185,6 +185,7 @@ function displayResult(result) {
     }, 1000);
 }
 
+// This takes the user to the score input page
 function winGame() {
     var header = document.getElementById("result");
     header.textContent = "Your score is: " + time;
@@ -193,12 +194,14 @@ function winGame() {
     inputState.setAttribute("style", "display:block;");
 }
 
+// This swaps the game to the score state with losing text along with stopping the timer
 function loseGame() {
     quizState.setAttribute("style", "display: none;");
     displayScores("You lose!");
     clearInterval(timeInterval);
 }
 
+// When clicked this button saves the score to the array then swaps to the score state
 saveButton.addEventListener("click", function() {
     var name = document.getElementById("name-input");
     saveScores(time + " by: " + name.value);
@@ -206,33 +209,35 @@ saveButton.addEventListener("click", function() {
     displayScores("Your Score: " + time);
 });
 
+// This takes in a new score and saves it in the appropriate place in the array
 function saveScores(newScore) {
-    if(highscores.length < listLimit) {
-        highscores[highscores.length] = newScore;
-    } else {
-       for(var i = 0; i < highscores.length; i++) {
-            if(highscores[i] < newScore) {
-                highscores.splice(i, 0, newScore);
-                if(highscores.length > listLimit) {
-                    highscores.splice(listLimit);
-                }
-                break;
-            }
-       }
-    }
+    // This adds a score to the end of the array
+    highscores[highscores.length] = newScore;
+
+    // This sorts then reverses the array so that its in descending order
     highscores.sort();
     highscores.reverse();
+
+    // This cuts off the array if theres more scores than the list limit allows
+    if(highscores.length > listLimit) {
+        highscores.splice(listLimit);
+    }
+
     saveScoresToStorage();
 }
 
+// Swaps the state to the highscore screen when the game is over
 function displayScores(text) {
+    // Makes the score state visible and sets the header text
     scoreState.setAttribute("style", "display:block;");
     var scoreHeader = document.getElementById("score-header");
     scoreHeader.textContent = text;
 
+    // Clears the score list
     var scoreList = document.getElementById("score-list");
     scoreList.innerHTML = '';
 
+    // Recreates the score list from the highscore array
     for(const score of highscores) {
         var listing = document.createElement("li");
         listing.textContent = score;
@@ -240,6 +245,7 @@ function displayScores(text) {
     }
 }
 
+// This saves the scores as a single string
 function saveScoresToStorage() {
     var scoreString = "";
     for(const score of highscores) {
@@ -248,21 +254,24 @@ function saveScoresToStorage() {
     localStorage.setItem("scores", scoreString);
 }
 
+// Loads the score list from local storage
 function loadScoresFromStorage() {
     var scoreString = localStorage.getItem("scores");
     if(scoreString != null) {
+        // This loads the scores as one string then splits them apart into an array
         highscores = scoreString.split(",-,").filter(function (e) {
             return e != '';
         });
     }
-    console.log(highscores);
 }
 
+// Takes the user to the highscore screen from the home screen
 highscoresButton.addEventListener("click", function() {
     readyState.setAttribute("style", "display: none;");
     displayScores("");
 });
 
+// Takes the user back to the home screen from the highscore screen
 backButton.addEventListener("click", function() {
     readyState.setAttribute("style", "display: block;");
     scoreState.setAttribute("style", "display: none;");

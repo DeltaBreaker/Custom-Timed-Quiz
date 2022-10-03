@@ -1,3 +1,4 @@
+/* Universal elements ---------------------------------- */
 :root {
     --text-color: #D2D3D5;
     --background-color: #2F3136;
@@ -18,7 +19,9 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     background-color: var(--background-color);
 }
+/*------------------------------------------------------ */
 
+/* Main state elements ---------------------------------- */
 #main-header {
     text-align: center;
 }
@@ -29,7 +32,9 @@ body {
    width: 15%;
    margin-bottom: 20px;
 }
+/*------------------------------------------------------- */
 
+/* Quiz state elements ---------------------------------- */
 quiz-state {
     display: none;
     background-color: var(--accent-color);
@@ -70,7 +75,9 @@ quiz-state {
     text-align: center;
     transition: all 0.25s ease-in-out;
 }
+/*------------------------------------------------------- */
 
+/* Input state elements ---------------------------------- */
 input-state {
     display: none;
     margin-left: 50%;
@@ -87,7 +94,9 @@ input-state {
     margin-left: 50%;
     transform: translate(-50%, 0);
 }
+/*-------------------------------------------------------- */
 
+/* Score state elements ---------------------------------- */
 score-state {
     display: none;
     margin-left: 50%;
@@ -117,3 +126,4 @@ li {
     margin-left: 50%;
     transform: translate(-50%, 0);
 }
+/*-------------------------------------------------------- */

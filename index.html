@@ -6,17 +6,22 @@
         <link rel="stylesheet" href="res/style.css">
     </head>
     <body>
+        <!-- Contains elements for the home state -->>
         <ready-state id="ready-state">
             <h1 id="main-header">Test Your Knowledge</h1>
             <button id="start-button" class="nav-button">Start</button>
             <button id="highscores-button" class="nav-button">Highscores</button>
         </ready-state>
+
+        <!-- Contains elements for the quiz state -->>
         <quiz-state id="quiz-state">
             <question-container id="question-container">
             </question-container>
             <h2 id="timer"></h2>
             <h2 id="right-wrong-label">Right</h2>
         </quiz-state>
+
+        <!-- Contains elements for the input state -->>
         <input-state id="input-state">
             <h1 id="main-header">Save Your Score</h1>
             <h2 id="result"></h2>
@@ -24,6 +29,8 @@
             <br/>
             <button class="centered-button" id="save-button">Save</button>
         </input-state>
+
+        <!-- Contains elements for the score state -->>
         <score-state id="score-state">
             <h1 id="main-header">Highscores</h1>
             <h2 id="score-header"></h1>
@@ -33,6 +40,8 @@
             </score-container>
             <button class="centered-button" id="back-button">Back</button>
         </score-state>
+
+        <!-- Links the JS file -->>
         <script src="res/script.js"></script>
     </body>
 </html>

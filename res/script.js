@@ -267,8 +267,12 @@ function loadScoresFromStorage() {
 
 // Takes the user to the highscore screen from the home screen
 highscoresButton.addEventListener("click", function() {
-    readyState.setAttribute("style", "display: none;");
-    displayScores("");
+    if(highscores.length > 0) {
+        readyState.setAttribute("style", "display: none;");
+        displayScores("");
+    } else {
+        alert("There are no highscores saved!");
+    }
 });
 
 // Takes the user back to the home screen from the highscore screen

@@ -90,7 +90,7 @@ var question_5 = {
 var questions = [ question_0, question_1, question_2, question_3, question_4, question_5 ];
 var currentQuestion = 0;
 
-loadScores();
+loadScoresFromStorage();
 
 startButton.addEventListener("click", function() {
     quizState.setAttribute("style", "display: block;");
@@ -195,7 +195,7 @@ function endGame(text) {
 
 saveButton.addEventListener("click", function() {
     var name = document.getElementById("name-input");
-    saveScores(name.value + " " + time);
+    saveScores(time + " by: " + name.value);
     inputState.setAttribute("style", "display:none;");
     displayScores("Your Score: " + time);
 });
@@ -214,6 +214,9 @@ function saveScores(newScore) {
             }
        }
     }
+    highscores.sort();
+    highscores.reverse();
+    saveScoresToStorage();
 }
 
 function displayScores(text) {
@@ -231,18 +234,20 @@ function displayScores(text) {
     }
 }
 
-var storageKey = "scores";
-function saveScores() {
+function saveScoresToStorage() {
     var scoreString = "";
     for(const score of highscores) {
-        scoreString += highscores + ",-,";
+        scoreString += score + ",-,";
     }
-    localStorage.setItem(storageKey, scoreString);
+    localStorage.setItem("scores", scoreString);
 }
 
-function loadScores() {
-    var scoreString = localStorage.getItem(storageKey);
+function loadScoresFromStorage() {
+    var scoreString = localStorage.getItem("scores");
     if(scoreString != null) {
-        highscores = scoreString.split(",-,");
+        highscores = scoreString.split(",-,").filter(function (e) {
+            return e != '';
+        });
     }
+    console.log(highscores);
 }

@@ -2,6 +2,8 @@
 var questionBox = document.getElementById("question-container");
 var startButton = document.getElementById("start-button");
 var highscoresButton = document.getElementById("highscores-button");
+var saveButton = document.getElementById("save-button");
+var backButton = document.getElementById("back-button");
 var timer = document.getElementById("timer");
 var rightWrongLabel = document.getElementById("right-wrong-label");
 
@@ -9,8 +11,6 @@ var readyState = document.getElementById("ready-state");
 var quizState = document.getElementById("quiz-state");
 var inputState = document.getElementById("input-state");
 var scoreState = document.getElementById("score-state");
-
-var saveButton = document.getElementById("save-button");
 
 // Keep track of highscores
 var highscores = [];
@@ -109,7 +109,7 @@ startButton.addEventListener("click", function() {
         if(time > 0) {
             updateTimer(-1);
         } else {
-            displayScores("You lose!");
+            loseGame();
         }
     }, 1000);
 });
@@ -147,7 +147,7 @@ function advanceQuiz() {
                     updateTimer(-10);
                     displayResult("Wrong");
                     if(time <= 0) {
-                        displayScores("You lose!");
+                        loseGame();
                         if(time < 0) {
                             updateTimer(-time);
                         }
@@ -163,8 +163,9 @@ function advanceQuiz() {
 
         // Advacnes the question counter
         currentQuestion++;
-    } else {
-        endGame("Your score is: " + time);
+    } else if(time > 0) {
+        winGame();
+        clearInterval(timeInterval);
     }
 };
 
@@ -184,13 +185,18 @@ function displayResult(result) {
     }, 1000);
 }
 
-function endGame(text) {
+function winGame() {
     var header = document.getElementById("result");
-    header.textContent = text;
+    header.textContent = "Your score is: " + time;
 
-    clearInterval(timeInterval);
     quizState.setAttribute("style", "display:none;");
     inputState.setAttribute("style", "display:block;");
+}
+
+function loseGame() {
+    quizState.setAttribute("style", "display: none;");
+    displayScores("You lose!");
+    clearInterval(timeInterval);
 }
 
 saveButton.addEventListener("click", function() {
@@ -251,3 +257,13 @@ function loadScoresFromStorage() {
     }
     console.log(highscores);
 }
+
+highscoresButton.addEventListener("click", function() {
+    readyState.setAttribute("style", "display: none;");
+    displayScores("");
+});
+
+backButton.addEventListener("click", function() {
+    readyState.setAttribute("style", "display: block;");
+    scoreState.setAttribute("style", "display: none;");
+});
